@@ -5,6 +5,18 @@
     height: 100vh;    
 }
 
+.wrapper {
+    width: 100%;
+    height: 100vh;    
+    overflow: hidden;
+}
+
+.holder {
+    width: 100%;
+    display: flex;
+    height: 100vh;    
+}
+
 #France-outline {
     stroke: red;
     fill:transparent;
@@ -12,23 +24,28 @@
 }
 
 .outline {
-    stroke: #c5e3f8;
+    stroke: rgba(197, 227, 248, 0.26);
     stroke-width: 3px;
     fill: transparentize(#3d535f, 0.4);
 }
 
 .st1 {
-    stroke:rgba(255,255,255,0.5);
+    stroke: rgba(255, 255, 255, 0.1);
     fill:transparent;
     transition:0.5s;
 
     cursor:pointer;
 
-    &:hover {
+    &:hover, &.hover {
         transform: translate3d(10px,-10px ,0px);
         fill: #a4c0d2;
         filter: url(#dropshadow);
-        stroke: white;
+        stroke: rgba(255,255,255,1);
+        animation: loop-dash-offset 30s linear;
+        animation-iteration-count: infinite;
+        &.hover {
+            transform: translate3d(5px,-10px ,0px);
+        }
     }
 }
 
@@ -36,16 +53,17 @@ svg {
     width: 100%;
     height: 100vh;
     margin:auto;
-    animation: launch-hologram 8s ease-in;
+    animation: launch-hologram 2s ease-in-out;
     transform: rotate3d(1, 1, 0, 30deg);
     animation-iteration-count: 1;
     z-index:1;
+    position:relative;
 
     &.holo {
         position: absolute;
         z-index: 0;
         opacity: 0.1;
-        filter: blur(2px);
+        filter: blur(1px);
         transform: rotate3d(1, 1, 0, 30deg) translate3d(-20px, 15px, 0);
     }
 }
@@ -75,5 +93,20 @@ svg {
 
     100% {
         transform: rotate3d(1, 1, 0, 30deg);
+    }
+}
+
+@keyframes loop-dash-offset {
+    0% {
+        stroke-dasharray: 500, 200;
+        stroke-dashoffset: 0%;
+    }
+
+    50% {
+        stroke-dashoffset: 200%;
+    }
+
+    100% {
+        stroke-dashoffset: 0%;
     }
 }
